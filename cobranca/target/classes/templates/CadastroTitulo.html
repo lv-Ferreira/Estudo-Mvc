@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{LayoutPadrao}">
+	
+<head>
+	<title>Cadastro de título</title>
+</head>
+
+<section layout:fragment="conteudo">
+	<div class="card text-center">
+		<div class="card-header">
+			<ul class="nav nav-tabs card-header-tabs">
+	    		<li class="nav-item">
+	        		<a class="nav-link active" href="#">Novo título</a>
+	      		</li>
+	      		<li class="nav-item">
+	        		<a class="nav-link" href="/titulos">Pesquisa de Títulos</a>
+	      		</li>
+	    	</ul>
+	  	</div>
+		<form class="form-horizontal" method="POST" action="/titulos" th:object="${titulo}">
+			<div th:replace="MensagemGeral"></div>
+			<div th:replace="MensagemErro"></div>
+			<div class="container">
+				<div class="card-body col align-self-center">
+				 	<div class="row">
+				 		<input type="hidden" th:field="*{codigo}">
+					 	<div class="form-group col-8" th:classappend="${#fields.hasErrors('descricao')} ? has-error">
+					   		<label for="inputDesc">Descrição</label>
+					   		<input type="text" class="form-control" id="descricao" placeholder="Informe a descrição..." th:field="*{descricao}">
+					 	</div>
+					 	<div class="form-group col-4" th:classappend="${#fields.hasErrors('dataVencimento')} ? has-error">
+					   		<label for="inputVenc">Vencimento</label>
+					   		<input type="text" class="form-control" id="dataVencimento" th:field="*{dataVencimento}"
+					   			data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+					   			data-date-autoclose="true" data-date-today-highlight="true" data-date-orientation="bottom">
+					 	</div>
+				 	</div>
+				 	<div class="row">
+					 	<div class="form-group col" th:classappend="${#fields.hasErrors('valor')} ? has-error">
+					   		<label for="inputValor">Valor</label>
+					   		<input type="text" class="form-control js-currency" id="valor" th:field="*{valor}">
+					 	</div>
+						<div class="form-group col">
+							<label for="inputStatus">Status</label>
+					   		<select id="status" class="form-control" th:field="*{status}">
+					   			<option th:each="status : ${todosStatusTitulo}" th:value="${status}" th:text="${status.descricao}"></option>
+					   		</select>
+						</div>
+				 	</div>
+			  		<button type="submit" class="btn btn-primary col-4">Cadastrar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</section>
+
+</html>

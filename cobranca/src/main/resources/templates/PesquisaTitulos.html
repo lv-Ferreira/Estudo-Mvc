@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	layout:decorate="~{LayoutPadrao}">
+	
+<head>
+	<title>Pesquisa de título</title>
+</head>
+
+<section layout:fragment="conteudo">
+	<div th:replace="MensagemGeral"></div>
+	<div class="card text-center">
+		<div class="card-header">
+			<ul class="nav nav-tabs card-header-tabs">
+	      		<li class="nav-item" sec:authorize="hasRole('ADMIN')">
+	        		<a class="nav-link" href="/titulos/novo">Novo título</a>
+	      		</li>
+	      		<li class="nav-item">
+	        		<a class="nav-link active" href="#">Pesquisa de Títulos</a>
+	      		</li>
+	    	</ul>
+	  	</div>
+		<div th:replace="PesquisaAdm" sec:authorize="hasRole('ADMIN')"></div>
+		<div th:replace="PesquisaUser" sec:authorize="hasRole('USER')"></div>
+		<div th:replace="DialogoConfirmacaoExclusao"></div>
+	</div>
+</section>
+
+</html>
